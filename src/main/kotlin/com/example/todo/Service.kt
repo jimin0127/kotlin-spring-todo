@@ -32,4 +32,10 @@ class SimpleTodoService (
         val todo: Todo = todoRepository.findById(id).orElseThrow()
         todo.setDone()
     }
+
+    fun createTodo(todo: Todo): Todo{
+        val todo = todoRepository.save(todo)
+
+        return todo
+    }
 }
