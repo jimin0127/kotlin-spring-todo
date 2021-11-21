@@ -10,6 +10,6 @@ class TodoService (
     private var todoRepository : TodoRepository
 ){
     fun getTodoList(): List<Todo>{
-        return todoRepository.findAll()
+        return todoRepository.findAllByOrderByCreatedAtDesc()
     }
 }
