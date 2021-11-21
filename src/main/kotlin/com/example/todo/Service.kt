@@ -21,4 +21,10 @@ class SimpleTodoService (
         val todoStatus: TodoStatus = if (done) TodoStatus.DONE else TodoStatus.NOT_DONE
         return todoRepository.findAllByStatusOrderByCreatedAtDesc(pageable, todoStatus)
     }
+
+    fun createTodo(todo: Todo): Todo{
+        val todo = todoRepository.save(todo)
+
+        return todo
+    }
 }
