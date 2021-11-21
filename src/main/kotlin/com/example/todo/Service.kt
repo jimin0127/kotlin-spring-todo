@@ -34,4 +34,14 @@ class SimpleTodoService (
         val todo: Todo = todoRepository.findById(id).orElseThrow()
         todo.setDone()
     }
+
+    fun deleteTodo(id: Long): Boolean {
+        try {
+            todoRepository.deleteById(id)
+        } catch(e: IllegalArgumentException) {
+            return false
+        }
+
+        return true
+    }
 }

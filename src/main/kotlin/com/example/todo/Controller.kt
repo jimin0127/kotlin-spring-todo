@@ -32,4 +32,11 @@ class TodoController(private val todoService: TodoService) {
     fun updateToDone(@PathVariable id: Long) {
         todoService.updateToDone(id)
     }
+
+    @DeleteMapping("/todo/{id}")
+    fun deleteTodo(@PathVariable id: Long): ResponseEntity<Any> {
+        var deleted: Boolean = todoService.deleteTodo(id)
+
+        return ResponseEntity.ok().body(deleted)
+    }
 }
