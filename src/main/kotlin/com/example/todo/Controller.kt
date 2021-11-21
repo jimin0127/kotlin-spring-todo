@@ -27,4 +27,11 @@ class TodoController(private val todoService: TodoService) {
     fun createTodo(@RequestBody todo: CreateTodoDTO) {
         todoService.createTodo(todo)
     }
+
+    @PutMapping("/todo/{id}")
+    fun toDone(@PathVariable id: Long): ResponseEntity<Any> {
+        var todo: Todo? = todoService.toDone(id)
+
+        return ResponseEntity.ok().body(todo)
+    }
 }
