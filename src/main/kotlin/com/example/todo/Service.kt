@@ -1,5 +1,6 @@
 package com.example.todo
 
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
@@ -8,7 +9,7 @@ import javax.transaction.Transactional
 class TodoService (
     private var todoRepository : TodoRepository
 ){
-    fun todoList(entity: Todo){
-        todoRepository.findAll()
+    fun getTodoList(): List<Todo>{
+        return todoRepository.findAll()
     }
 }
