@@ -27,4 +27,11 @@ class TodoController(private val todoService: TodoService) {
     fun createTodo(@RequestBody todo: CreateTodoDTO) {
         todoService.createTodo(todo)
     }
+
+    @PostMapping("/todo")
+    fun createTodo(@RequestBody todo: Todo): ResponseEntity<Any> {
+        var createdTodo: Todo = todoService.createTodo(todo)
+
+        return ResponseEntity.ok().body(createdTodo)
+    }
 }
