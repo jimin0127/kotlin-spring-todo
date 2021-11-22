@@ -1,8 +1,9 @@
 package com.example.todo
 
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.util.*
 
 @RestController
 class HomeController {
@@ -13,8 +14,11 @@ class HomeController {
 @RestController
 class TodoController(private val todoService: TodoService){
     @GetMapping("/todo")
-    fun getTodoList(@RequestParam(required = false) done: Boolean? = null): ResponseEntity<Any>{
-        val todos = todoService.getTodoList(done)
+    fun getTodoList(
+            @RequestParam("done", required = false) done: Boolean? = null,
+            pageable: Pageable
+    ): ResponseEntity<Any>{
+        val todos: Page<Todo> = todoService.getTodoList(done, pageable)
 
         return ResponseEntity.ok().body(todos)
     }
