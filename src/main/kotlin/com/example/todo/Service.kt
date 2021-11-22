@@ -33,15 +33,4 @@ class SimpleTodoService (
         val todo: Todo = todoRepository.findById(id).orElseThrow()
         todo.setDone()
     }
-
-    fun toDone(id: Long): Todo?{
-        var todo: Optional<Todo> = todoRepository.findById(id)
-        if (todo.isEmpty){
-            return null
-        }
-
-        todo.get().status = TodoStatus.DONE
-
-        return todo.get()
-    }
 }
