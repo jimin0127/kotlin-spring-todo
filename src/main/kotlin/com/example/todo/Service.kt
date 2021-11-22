@@ -5,12 +5,16 @@ import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
+interface TodoService {
+    fun getTodoList(done: Boolean?, pageable: Pageable): Page<Todo>
+}
+
 @Service
 @Transactional
-class TodoService (
+class SimpleTodoService (
     private var todoRepository : TodoRepository
-){
-    fun getTodoList(
+) : TodoService{
+    override fun getTodoList(
             done: Boolean?,
             pageable: Pageable
     ): Page<Todo> {
