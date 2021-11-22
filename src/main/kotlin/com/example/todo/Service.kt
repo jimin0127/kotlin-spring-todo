@@ -26,10 +26,4 @@ class SimpleTodoService (
     override fun createTodo(todo: CreateTodoDTO) {
         todoRepository.save(todo.toEntity())
     }
-
-    fun createTodo(todo: Todo): Todo{
-        val todo = todoRepository.save(todo)
-
-        return todo
-    }
 }
