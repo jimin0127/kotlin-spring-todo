@@ -9,7 +9,11 @@ import javax.transaction.Transactional
 class TodoService (
     private var todoRepository : TodoRepository
 ){
-    fun getTodoList(): List<Todo>{
-        return todoRepository.findAllByOrderByCreatedAtDesc()
+    fun getTodoList(done: Boolean?): List<Todo>{
+        if(done==null)
+            return todoRepository.findAllByOrderByCreatedAtDesc()
+
+        val todoStatus: TodoStatus = if (done) TodoStatus.DONE else TodoStatus.NOT_DONE
+        return todoRepository.findAllByStatusOrderByCreatedAtDesc(todoStatus)
     }
 }
