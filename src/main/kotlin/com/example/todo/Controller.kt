@@ -12,14 +12,12 @@ class HomeController {
 }
 
 @RestController
-class TodoController(private val todoService: TodoService){
+class TodoController(private val todoService: TodoService) {
     @GetMapping("/todo")
     fun getTodoList(
-            @RequestParam("done", required = false) done: Boolean? = null,
+            @RequestParam("done") done: Boolean,
             pageable: Pageable
-    ): ResponseEntity<Any>{
-        val todos: Page<Todo> = todoService.getTodoList(done, pageable)
-
-        return ResponseEntity.ok().body(todos)
+    ): Page<Todo> {
+        return todoService.getTodoList(done, pageable)
     }
 }
