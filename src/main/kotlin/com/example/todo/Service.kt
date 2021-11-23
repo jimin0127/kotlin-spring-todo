@@ -6,19 +6,20 @@ import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
 interface TodoService {
-    fun getTodoList(done: Boolean, pageable: Pageable): Page<Todo>
+    fun getTodoList(done: Boolean, pageable: Pageable): Page<TodoDTO>
 }
 
 @Service
 @Transactional
 class SimpleTodoService (
     private var todoRepository : TodoRepository
-) : TodoService{
+) : TodoService {
     override fun getTodoList(
             done: Boolean,
             pageable: Pageable
-    ): Page<Todo> {
+    ): Page<TodoDTO> {
         val todoStatus: TodoStatus = if (done) TodoStatus.DONE else TodoStatus.NOT_DONE
-        return todoRepository.findAllByStatusOrderByCreatedAtDesc(pageable, todoStatus)
+        val todo: Page<Todo> = todoRepository.findAllByStatusOrderByCreatedAtDesc(pageable, todoStatus)
+        return todo.map { it.toTodoDTO() }
     }
 }

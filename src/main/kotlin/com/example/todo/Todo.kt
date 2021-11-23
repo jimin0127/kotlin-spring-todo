@@ -24,6 +24,15 @@ class Todo(
 
     @Column(nullable = false)
     var createdAt: ZonedDateTime = ZonedDateTime.now()
+
+    fun toTodoDTO() : TodoDTO {
+        return TodoDTO(
+            id,
+            todoContent,
+            status,
+            createdAt
+        )
+    }
 }
 
 enum class TodoStatus {
