@@ -12,7 +12,7 @@ interface TodoService {
 @Service
 @Transactional
 class SimpleTodoService (
-    private var todoRepository : TodoRepository
+    private val todoRepository : TodoRepository
 ) : TodoService {
     override fun getTodoList(
             done: Boolean,

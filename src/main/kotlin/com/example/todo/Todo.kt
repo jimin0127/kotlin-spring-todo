@@ -16,7 +16,7 @@ class Todo(
 
 ){
     @Column(nullable = false)
-    val todoContent: String = todoContent
+    var todoContent: String = todoContent
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
