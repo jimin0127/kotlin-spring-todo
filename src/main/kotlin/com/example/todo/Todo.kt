@@ -3,14 +3,12 @@ package com.example.todo
 import java.time.ZonedDateTime
 import javax.persistence.Entity
 import javax.persistence.Id
-import javax.persistence.Table
 import javax.persistence.Enumerated
 import javax.persistence.EnumType
 import javax.persistence.Column
 
 
 @Entity
-@Table(name="todo")
 class Todo(
     @Id
     var id: Long,
