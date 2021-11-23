@@ -6,12 +6,6 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-class HomeController {
-    @GetMapping("/")
-    fun home(): ResponseEntity<Unit> = ResponseEntity.ok().build()
-}
-
-@RestController
 class TodoController(private val todoService: TodoService) {
     @GetMapping("/todo")
     fun getTodoList(
