@@ -3,7 +3,6 @@ package com.example.todo
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
-import java.util.Optional
 import javax.transaction.Transactional
 
 interface TodoService {
