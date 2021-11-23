@@ -2,14 +2,14 @@ package com.example.todo
 
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
-import java.util.Optional
 import javax.transaction.Transactional
 
 interface TodoService {
     fun getTodoList(done: Boolean, pageable: Pageable): Page<Todo>
     fun createTodo(todo: CreateTodoDTO)
-    fun toDone(id: Long): Todo?
+    fun toDone(id: Long): TodoDTO
 }
 
 @Service
@@ -29,14 +29,9 @@ class SimpleTodoService (
         todoRepository.save(todo.toEntity())
     }
 
-    override fun toDone(id: Long): Todo?{
-        var todo: Optional<Todo> = todoRepository.findById(id)
-        if (todo.isEmpty){
-            return null
-        }
-
-        todo.get().status = TodoStatus.DONE
-
-        return todo.get()
+    override fun toDone(id: Long): TodoDTO{
+        val todo: Todo = todoRepository.findByIdOrNull(id) ?: throw IllegalArgumentException()
+        todo.toDone()
+        return todo.toTodoDTO()
     }
 }
