@@ -7,7 +7,7 @@ import javax.transaction.Transactional
 
 interface TodoService {
     fun getTodoList(done: Boolean, pageable: Pageable): Page<Todo>
-    fun createTodo(todo: CreateTodoDTO): Todo
+    fun createTodo(todo: CreateTodoDTO): Unit
 }
 
 @Service
@@ -23,9 +23,11 @@ class SimpleTodoService (
         return todoRepository.findAllByStatusOrderByCreatedAtDesc(pageable, todoStatus)
     }
 
-    override fun createTodo(todo: CreateTodoDTO): Todo{
-        val todo = todoRepository.save(todo.toEntity())
-
-        return todo
+    override fun createTodo(todo: CreateTodoDTO): Unit {
+        try {
+            todoRepository.save(todo.toEntity())
+        } catch(e: IllegalArgumentException) {
+            print(e)
+        }
     }
 }
