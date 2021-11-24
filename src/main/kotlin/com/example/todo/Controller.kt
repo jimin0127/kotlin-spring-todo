@@ -11,6 +11,7 @@ class TodoController(private val todoService: TodoService) {
             @RequestParam("done") done: Boolean,
             pageable: Pageable
     ): Page<TodoDTO> {
-        return todoService.getTodoList(done, pageable)
+        val todo: Page<Todo> = todoService.getTodoList(done, pageable)
+        return todo.map { it.toTodoDTO() }
     }
 }
