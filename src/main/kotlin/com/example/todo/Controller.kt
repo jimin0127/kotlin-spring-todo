@@ -34,7 +34,7 @@ class TodoController(private val todoService: TodoService) {
     }
 
     @DeleteMapping("/todo/{id}")
-    fun deleteTodo(@PathVariable id: Long): Unit {
+    fun deleteTodo(@PathVariable id: Long) {
         todoService.deleteTodo(id)
     }
 }
