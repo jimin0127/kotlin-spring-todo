@@ -10,7 +10,7 @@ interface TodoService {
     fun getTodoList(done: Boolean, pageable: Pageable): Page<Todo>
     fun createTodo(todo: CreateTodoDTO)
     fun updateToDone(id: Long)
-    fun deleteTodo(id: Long): Unit
+    fun deleteTodo(id: Long)
 }
 
 @Service
@@ -35,7 +35,7 @@ class SimpleTodoService (
         todo.setDone()
     }
 
-    override fun deleteTodo(id: Long): Unit {
+    override fun deleteTodo(id: Long) {
         try {
             todoRepository.deleteById(id)
         } catch (e: IllegalArgumentException) {
