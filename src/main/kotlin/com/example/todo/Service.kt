@@ -8,7 +8,7 @@ import javax.transaction.Transactional
 interface TodoService {
     fun getTodoList(done: Boolean, pageable: Pageable): Page<Todo>
     fun createTodo(todo: CreateTodoDTO)
-    fun updateToDone(id: Long): Todo
+    fun updateToDone(id: Long)
 }
 
 @Service
@@ -28,10 +28,8 @@ class SimpleTodoService (
         todoRepository.save(todo.toEntity())
     }
 
-    override fun updateToDone(id: Long): Todo{
+    override fun updateToDone(id: Long) {
         val todo: Todo = todoRepository.findById(id).orElseThrow()
         todo.setDone()
-
-        return todo
     }
 }
