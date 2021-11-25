@@ -10,12 +10,10 @@ data class TodoDTO (
 )
 
 data class CreateTodoDTO(
-    val id: Long,
     val todoContent: String
 ){
     fun toEntity(): Todo {
         return Todo(
-            id = id,
             todoContent = todoContent
         )
     }
