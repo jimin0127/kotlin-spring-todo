@@ -7,7 +7,7 @@ import javax.transaction.Transactional
 
 interface TodoService {
     fun getTodoList(done: Boolean, pageable: Pageable): Page<Todo>
-    fun createTodo(todo: CreateTodoDTO): Unit
+    fun createTodo(todo: CreateTodoDTO)
 }
 
 @Service
@@ -23,7 +23,7 @@ class SimpleTodoService (
         return todoRepository.findAllByStatusOrderByCreatedAtDesc(pageable, todoStatus)
     }
 
-    override fun createTodo(todo: CreateTodoDTO): Unit {
+    override fun createTodo(todo: CreateTodoDTO) {
         try {
             todoRepository.save(todo.toEntity())
         } catch(e: IllegalArgumentException) {
