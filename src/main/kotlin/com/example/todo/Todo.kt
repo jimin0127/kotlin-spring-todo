@@ -22,7 +22,7 @@ class Todo(
     @Column(nullable = false)
     var createdAt: ZonedDateTime = ZonedDateTime.now()
 
-    fun setDone(): Unit {
+    fun setDone() {
         status = TodoStatus.DONE
     }
 }
