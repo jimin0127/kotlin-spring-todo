@@ -7,6 +7,7 @@ import javax.transaction.Transactional
 
 interface TodoService {
     fun getTodoList(done: Boolean, pageable: Pageable): Page<Todo>
+    fun createTodo(todo: CreateTodoDTO)
 }
 
 @Service
@@ -20,5 +21,9 @@ class SimpleTodoService (
     ): Page<Todo> {
         val todoStatus: TodoStatus = if (done) TodoStatus.DONE else TodoStatus.NOT_DONE
         return todoRepository.findAllByStatusOrderByCreatedAtDesc(pageable, todoStatus)
+    }
+
+    override fun createTodo(todo: CreateTodoDTO) {
+        todoRepository.save(todo.toEntity())
     }
 }

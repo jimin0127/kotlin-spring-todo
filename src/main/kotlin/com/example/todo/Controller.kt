@@ -22,4 +22,9 @@ class TodoController(private val todoService: TodoService) {
             )
         }
     }
+
+    @PostMapping("/todo")
+    fun createTodo(@RequestBody todo: CreateTodoDTO) {
+        todoService.createTodo(todo)
+    }
 }
