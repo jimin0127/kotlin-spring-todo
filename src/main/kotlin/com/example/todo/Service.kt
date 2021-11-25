@@ -24,10 +24,6 @@ class SimpleTodoService (
     }
 
     override fun createTodo(todo: CreateTodoDTO) {
-        try {
-            todoRepository.save(todo.toEntity())
-        } catch(e: IllegalArgumentException) {
-            print(e)
-        }
+        todoRepository.save(todo.toEntity())
     }
 }
