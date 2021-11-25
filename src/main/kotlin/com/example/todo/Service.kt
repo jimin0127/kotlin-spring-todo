@@ -36,10 +36,6 @@ class SimpleTodoService (
     }
 
     override fun deleteTodo(id: Long) {
-        try {
-            todoRepository.deleteById(id)
-        } catch (e: IllegalArgumentException) {
-            print(e)
-        }
+        todoRepository.deleteById(id)
     }
 }
