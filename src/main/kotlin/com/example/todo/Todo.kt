@@ -1,20 +1,17 @@
 package com.example.todo
 
 import java.time.ZonedDateTime
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Enumerated
-import javax.persistence.EnumType
-import javax.persistence.Column
+import javax.persistence.*
 
 
 @Entity
 class Todo(
-    @Id
-    var id: Long,
     todoContent: String
-
 ){
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    var id: Long = 0
+
     @Column(nullable = false)
     var todoContent: String = todoContent
 
