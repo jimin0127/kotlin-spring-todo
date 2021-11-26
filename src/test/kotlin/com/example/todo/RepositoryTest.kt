@@ -33,6 +33,7 @@ class RepositoryTest (
         val todos = repository.findAllByStatusOrderByCreatedAtDesc(pageable, TodoStatus.DONE)
 
         assertThat(todos.content.size).isEqualTo(2)
+        todos.content.map { assertThat(it.status).isEqualTo(TodoStatus.DONE) }
     }
 
     @Test
@@ -51,6 +52,7 @@ class RepositoryTest (
         val todos = repository.findAllByStatusOrderByCreatedAtDesc(pageable, TodoStatus.NOT_DONE)
 
         assertThat(todos.content.size).isEqualTo(1)
+        todos.content.map { assertThat(it.status).isEqualTo(TodoStatus.NOT_DONE) }
     }
 
     @Test
