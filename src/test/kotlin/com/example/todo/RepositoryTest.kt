@@ -85,17 +85,12 @@ class RepositoryTest (
     @Test
     fun `id로 TODO를 삭제한다`() {
         val todo1 = Todo("test1")
-        val todo2 = Todo("test2")
-
         entityManager.persist(todo1)
-        entityManager.persist(todo2)
 
         repository.deleteById(1)
 
         val entityTodo1 = entityManager.find(Todo::class.java, 1L)
-        val entityTodo2 = entityManager.find(Todo::class.java, 2L)
 
         assertThat(entityTodo1).isEqualTo(null)
-        assertThat(entityTodo2).isEqualTo(todo2)
     }
 }
