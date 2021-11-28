@@ -21,19 +21,21 @@ class RepositoryTest (
     fun `완료한 TODO를 최근 등록일 순서로 가져온다`() {
         val todo1 = Todo("test1")
         val todo2 = Todo("test2")
-        val todo3 = Todo("test3")
         todo1.setDone()
         todo2.setDone()
         entityManager.persist(todo1)
         entityManager.persist(todo2)
-        entityManager.persist(todo3)
 
         val pageable = Pageable.ofSize(5)
 
         val todos = repository.findAllByStatusOrderByCreatedAtDesc(pageable, TodoStatus.DONE)
 
-        assertThat(todos.content.size).isEqualTo(2)
+        // 조회된 리스트의 status가 모두 DONE 인지 확인합니다.
         todos.content.map { assertThat(it.status).isEqualTo(TodoStatus.DONE) }
+
+        // 등록일을 기준으로 정렬되었는지 확인합니다.
+        assertThat(todos.content[0].id).isEqualTo(2L)
+        assertThat(todos.content[1].id).isEqualTo(1L)
     }
 
     @Test
@@ -43,16 +45,19 @@ class RepositoryTest (
         val todo1 = Todo("test1")
         val todo2 = Todo("test2")
         val todo3 = Todo("test3")
-        todo1.setDone()
-        todo2.setDone()
         entityManager.persist(todo1)
         entityManager.persist(todo2)
         entityManager.persist(todo3)
 
         val todos = repository.findAllByStatusOrderByCreatedAtDesc(pageable, TodoStatus.NOT_DONE)
 
-        assertThat(todos.content.size).isEqualTo(1)
+        // 조회된 리스트의 status가 모두 NOT_DONE 인지 확인합니다.
         todos.content.map { assertThat(it.status).isEqualTo(TodoStatus.NOT_DONE) }
+
+        // 등록일을 기준으로 정렬되었는지 확인합니다.
+        assertThat(todos.content[0].id).isEqualTo(3L)
+        assertThat(todos.content[1].id).isEqualTo(2L)
+        assertThat(todos.content[2].id).isEqualTo(1L)
     }
 
     @Test
