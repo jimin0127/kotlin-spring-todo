@@ -62,12 +62,14 @@ class RepositoryTest (
 
     @Test
     fun `TODO를 저장한다`() {
-        val todo1 = Todo("test1")
-        entityManager.persist(todo1)
-
+        repository.save(Todo("test1"))
         repository.save(Todo("test2"))
 
-        assertThat(entityManager.contains(Todo("test2")))
+        val entityTodo1 = entityManager.find(Todo::class.java, 1L)
+        val entityTodo2 = entityManager.find(Todo::class.java, 2L)
+
+        assertThat(entityTodo1.todoContent).isEqualTo("test1")
+        assertThat(entityTodo2.todoContent).isEqualTo("test2")
     }
 
     @Test
