@@ -2,6 +2,7 @@ package com.example.todo
 
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
@@ -9,6 +10,7 @@ interface TodoService {
     fun getTodoList(done: Boolean, pageable: Pageable): Page<Todo>
     fun createTodo(todo: CreateTodoDTO)
     fun updateToDone(id: Long)
+    fun deleteTodo(id: Long)
 }
 
 @Service
@@ -31,5 +33,9 @@ class SimpleTodoService (
     override fun updateToDone(id: Long) {
         val todo: Todo = todoRepository.findById(id).orElseThrow()
         todo.setDone()
+    }
+
+    override fun deleteTodo(id: Long) {
+        todoRepository.deleteById(id)
     }
 }
