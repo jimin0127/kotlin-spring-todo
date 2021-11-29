@@ -27,4 +27,9 @@ class TodoController(private val todoService: TodoService) {
     fun createTodo(@RequestBody todo: CreateTodoDTO) {
         todoService.createTodo(todo)
     }
+
+    @PutMapping("/todo/{id}")
+    fun updateToDone(@PathVariable id: Long) {
+        todoService.updateToDone(id)
+    }
 }
